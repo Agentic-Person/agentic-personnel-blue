@@ -119,7 +119,7 @@ export default function WorkflowSection() {
                         <motion.div
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.3 }}
-                          className="relative w-[400px] h-[300px] rounded-2xl overflow-hidden shadow-2xl"
+                          className="relative w-[480px] h-[270px] rounded-2xl overflow-hidden shadow-2xl"
                           style={{ borderColor: '#4e8ad3', borderWidth: '2px' }}
                         >
                           <Image
@@ -239,7 +239,7 @@ export default function WorkflowSection() {
                         <motion.div
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.3 }}
-                          className="relative w-[400px] h-[300px] rounded-2xl overflow-hidden shadow-2xl"
+                          className="relative w-[480px] h-[270px] rounded-2xl overflow-hidden shadow-2xl"
                           style={{ borderColor: '#4e8ad3', borderWidth: '2px' }}
                         >
                           <Image
