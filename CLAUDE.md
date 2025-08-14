@@ -4,89 +4,145 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is The AI CEO website project (aiceo_website_02), a Next.js website for The AI CEO company. The company specializes in custom AI solutions for small and medium-sized businesses (SMBs), offering consultation-first approach with AI tools and automation.
+This is the Agentic Personnel Solutions website, a Next.js application showcasing smart automation systems for small and medium-sized businesses (SMBs). The website emphasizes human-centric design while leveraging AI-powered automation to simplify workflows and manage repetitive tasks.
 
 ## Project Structure
-
-This is a Next.js website project with the following structure:
 
 ```
 src/
 ├── components/
 │   ├── ui/
-│   │   ├── ParticleSystem_02.tsx - Main particle system component
+│   │   ├── ParticleSystem_02.tsx - Dual particle system with convergence points
 │   │   ├── Flipbook.tsx - Image flipbook component
 │   │   └── [other UI components]
 │   ├── sections/
-│   │   ├── HeroSection.tsx - Main hero section with particle systems
+│   │   ├── HeroSection.tsx - Hero with particle systems and tagline
+│   │   ├── WorkflowSection.tsx - 5-step process with alternating layout
+│   │   ├── DemoSection.tsx - YouTube video demonstrations
 │   │   └── [other sections]
-│   └── animations/ - Animation components
-├── app/ - Next.js app router pages
-└── styles/ - CSS styling
+│   └── animations/ - Framer Motion animation components
+├── app/ - Next.js 15 app router pages
+└── styles/ - Global CSS and Tailwind styles
 
 docs/
-├── ParticleSystem.md - Particle system documentation
-├── About The AI CEO.md - Company overview and current AI products
-├── ai_ceo_website_strategy.md - Complete website strategy and messaging
-└── [other strategic documents]
+├── ParticleSystem.md - Complete particle system documentation
+└── [other documentation]
 
-tailwind.config.ts - Animation definitions and keyframes
+public/
+├── aps-logo.png - Company logo
+└── [workflow images and assets]
+
+tailwind.config.ts - Animation keyframes and custom styles
 ```
 
-## Key Company Information
+## Company Information
 
-**Core Business**: Custom AI solutions for SMBs
+**Company Name**: Agentic Personnel Solutions
+
+**Core Business**: Smart automation systems for SMBs
 - Target: Small and medium-sized businesses
-- Approach: Consultation-first with generous free value
-- Philosophy: "Lead with AI Strategy, Empowered by Human Insight"
+- Approach: Human-centric design with AI automation
+- Philosophy: "Intelligent Systems. Built for Humans. Powered by AI."
 
-**Current AI Products**:
-- Bankruptcy Navigator (v1.101) - AI paralegal for portfolio managers
-- AI Gimmick Guard - Fraud detection agent
-- TValue Helper - Statistical analysis guide
-- Equipment Finance Helper - Sales coaching AI
-- AI Regulation Monitor GPT - Banking compliance agent
+**Key Messaging**:
+- Tagline: "We build smart systems that manage repetitive tasks, simplify workflows, and lighten the load for SMBs"
+- CTA: "Let's Chat!"
+- Focus: Workflow simplification and task automation
 
-**Core Positioning**: 
-- "Stop Fighting With Generic AI Tools"
-- "Custom AI that actually understands your business - without the enterprise price tag"
+## Development Guidelines
 
-## Development Notes
+### Working with This Repository
 
-**No Build System**: This repository contains only documentation files and does not have:
-- package.json or other dependency files
-- Build, test, or lint commands
-- Source code requiring compilation
+**Development Server**:
+- Run on port 3001: `npm run dev`
+- Build: `npm run build`
+- Production: `npm start`
 
-**Content Strategy**: The documentation focuses on:
-- SMB-specific AI solutions
-- Trust-building through education
-- Consultation-first business model
-- Security and compliance emphasis
+### Important Components
 
-## Working with This Repository
+**Particle System** (`ParticleSystem_02.tsx`):
+- Dual systems with convergence at (70%, 35%) and (85%, 35%)
+- 16 animation variants total
+- ~720 particles running at 60fps
+- See `docs/ParticleSystem.md` for complete reference
 
-This is a Next.js website project with:
-- **Development server**: `npm run dev` (runs on port 3001)
-- **Build process**: Standard Next.js build system
-- **Key components**: ParticleSystem_02.tsx (hero animations), HeroSection.tsx (main layout)
-- **Documentation**: See `docs/ParticleSystem.md` for particle system reference
-- **Styling**: Tailwind CSS with custom animations defined in `tailwind.config.ts`
+**Workflow Section** (`WorkflowSection.tsx`):
+- Alternating image-text layout
+- Perfect center alignment with 120px gaps
+- 16:9 aspect ratio images (480x270px)
+- 5 steps: Discover → Design → Develop → Deploy → Deliver
 
-### Important Development Notes:
-- **Particle System**: Uses ParticleSystem_02.tsx with 16 animation variants (working version)
-- **Hero Section**: Dual particle systems converging at flipbook center (70%, 35%) and right side (85%, 35%)
-- **Animations**: All keyframes defined in tailwind.config.ts - do not modify without checking ParticleSystem.md
-- **Testing**: Dev server at http://localhost:3001
+**Hero Section** (`HeroSection.tsx`):
+- Contains dual particle systems
+- Flipbook component integration
+- Main tagline and messaging
 
-## Key Documents
+### Design System
 
-### Technical Documentation
-- `docs/ParticleSystem.md` - Complete particle system reference and troubleshooting guide
+**Color Palette**:
+- Background: #002246 (dark blue)
+- Card Background: #001d39
+- Primary Accent: #4e8ad3 (blue)
+- Text Primary: #FFFFFF
+- Text Secondary: #9ab6e0
 
-### Strategic Documents
-- `docs/ai_ceo_website_strategy.md` - Complete website flow, messaging, and conversion strategy
-- `docs/About The AI CEO.md` - Product descriptions and current offerings
-- `docs/Strategic Positioning of The AI CEO Agentic System.md` - Technical architecture and market analysis
+**Typography**:
+- Headings: Bold, large sizes
+- Body: Regular weight, good line height
+- CTAs: Medium weight with hover effects
 
-When making changes, ensure alignment with the core SMB-focused, consultation-first positioning and the company's security-first approach to AI implementation.
+### Animation Guidelines
+
+**Framer Motion**:
+- Scroll-triggered animations throughout
+- Smooth transitions (0.3-0.6s duration)
+- Scale effects on hover (1.05x)
+- Viewport-based triggers with margins
+
+**Particle System**:
+- DO NOT modify keyframes without checking ParticleSystem.md
+- Maintain 60fps performance target
+- Test on multiple screen sizes
+
+## Best Practices
+
+### Code Style
+- Use TypeScript strict mode
+- Maintain component modularity
+- Follow existing patterns in codebase
+- Keep animations performant
+
+### Performance
+- Optimize images with Next.js Image component
+- Use lazy loading where appropriate
+- Monitor bundle size
+- Test on mobile devices
+
+### Accessibility
+- Maintain WCAG 2.1 compliance
+- Provide alt text for images
+- Ensure keyboard navigation works
+- Test with screen readers
+
+## Repository Information
+
+**GitHub**: https://github.com/Agentic-Person/agentic-personnel-blue
+**Branch**: main (primary development branch)
+
+## Key Documentation
+
+- `README.md` - Project overview and setup instructions
+- `TODO.md` - Development progress and feature tracking
+- `docs/ParticleSystem.md` - Particle system technical reference
+- This file (`CLAUDE.md`) - AI assistant guidance
+
+## Important Notes
+
+1. This is NOT "The AI CEO" website - this is Agentic Personnel Solutions
+2. Always use "Agentic Personnel" or "Agentic Personnel Solutions" for branding
+3. The logo is `/aps-logo.png` in the public folder
+4. Development server runs on port 3001, not 3000
+5. The workflow section uses an alternating layout pattern - maintain this design
+6. Particle system is performance-critical - test any changes thoroughly
+
+When making changes, ensure alignment with the company's focus on smart automation for SMBs and maintain the human-centric design philosophy.
