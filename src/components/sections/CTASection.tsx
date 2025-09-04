@@ -90,7 +90,7 @@ export default function CTASection() {
                   <div className="flex items-start gap-4 mb-6">
                     <div className="relative w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
                       <Image
-                        src="/jimmy_profile.png"
+                        src="/avatar/jimmy3d.png"
                         alt="Jimmy"
                         fill
                         className="object-cover"
