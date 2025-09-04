@@ -3,6 +3,9 @@
 import Container from '@/components/ui/Container';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { ChevronDown } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import WaterDropParticles from '@/components/ui/WaterDropParticles';
 
 const workflowSteps = [
   {
@@ -76,6 +79,172 @@ export default function WorkflowSection() {
     '/05_customer_success_support_card.png',
   ];
 
+  // State to track which arrow is currently at center
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [arrowsInCenter, setArrowsInCenter] = useState<Set<number>>(new Set());
+  const [particleEmitters, setParticleEmitters] = useState<Array<{ id: string; x: number; y: number }>>([]);
+  const [lastScrollY, setLastScrollY] = useState<number>(0);
+  
+  // Refs to track arrow positions
+  const arrowRefs = useRef<{ [key: number]: HTMLElement | null }>({});
+
+  // Scroll detection system - sound in both directions, particles only when scrolling down
+  useEffect(() => {
+    let isProcessing = false;
+    
+    const handleScroll = () => {
+      // Prevent processing multiple events at once
+      if (isProcessing) return;
+      isProcessing = true;
+      
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > lastScrollY;
+      const viewportCenter = window.innerHeight / 2; // Center of viewport
+      const newArrowsInCenter = new Set<number>();
+      
+      // Check each arrow position
+      workflowSteps.forEach((step) => {
+        const arrowElement = document.getElementById(`workflow-step-${step.number}`);
+        
+        if (arrowElement) {
+          const rect = arrowElement.getBoundingClientRect();
+          const arrowCenter = rect.top + rect.height / 2;
+          
+          // Check if arrow is at the center line (within threshold)
+          const threshold = 50; // pixels tolerance for triggering
+          if (Math.abs(arrowCenter - viewportCenter) < threshold) {
+            newArrowsInCenter.add(step.number);
+            
+            // Trigger if this arrow wasn't in center before
+            if (!arrowsInCenter.has(step.number)) {
+              setCurrentStep(step.number);
+              
+              // Always play sound regardless of scroll direction
+              console.log(`🎯 SOUND TRIGGER: Arrow ${step.number} - ${step.title} crossed center`);
+              try {
+                playWaterDropSound();
+              } catch (error) {
+                console.log('Audio playback failed:', error);
+              }
+              
+              // Only emit particles when scrolling DOWN
+              if (isScrollingDown) {
+                console.log(`💧 PARTICLES: Emitting for step ${step.number}`);
+                handleParticleEmission(step.number, step.title);
+              }
+            }
+          }
+        }
+      });
+      
+      // Update the set of arrows currently in center
+      setArrowsInCenter(newArrowsInCenter);
+      setLastScrollY(currentScrollY);
+      
+      // Allow next scroll event to be processed
+      setTimeout(() => {
+        isProcessing = false;
+      }, 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    // Don't call handleScroll() on mount to avoid initial trigger
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [arrowsInCenter, lastScrollY]);
+
+  // Play water droplet sound effect
+  const playWaterDropSound = () => {
+    // Create audio context for web audio API sound
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    
+    // Create oscillator for the 'plink' sound
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    // Connect nodes
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Configure the water drop sound
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime); // Start frequency
+    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1); // Drop pitch
+    
+    // Configure volume envelope for that 'drop' effect - AUDIO OFF
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);  // Set to 0 for OFF
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    // Play the sound
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+    
+    // Add a second 'plop' for more water-like effect
+    setTimeout(() => {
+      const oscillator2 = audioContext.createOscillator();
+      const gainNode2 = audioContext.createGain();
+      
+      oscillator2.connect(gainNode2);
+      gainNode2.connect(audioContext.destination);
+      
+      oscillator2.frequency.setValueAtTime(600, audioContext.currentTime);
+      oscillator2.frequency.exponentialRampToValueAtTime(250, audioContext.currentTime + 0.05);
+      
+      gainNode2.gain.setValueAtTime(0, audioContext.currentTime);  // Set to 0 for OFF
+      gainNode2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+      
+      oscillator2.start(audioContext.currentTime);
+      oscillator2.stop(audioContext.currentTime + 0.15);
+    }, 50);
+  };
+
+  // Handle particle emission (for all arrows, only when scrolling down)
+  const handleParticleEmission = (stepNumber: number, stepTitle: string) => {
+    // Emit particles for any arrow (1-5)
+    const arrowElement = document.getElementById(`workflow-step-${stepNumber}`);
+    if (arrowElement) {
+      const rect = arrowElement.getBoundingClientRect();
+      const arrowCenterX = rect.left + rect.width / 2;
+      const arrowCenterY = rect.top + rect.height / 2;
+      
+      // Add new particle emitter at arrow position
+      const emitterId = `particles-${Date.now()}-${stepNumber}`;
+      setParticleEmitters(prev => [...prev, { 
+        id: emitterId, 
+        x: arrowCenterX, 
+        y: arrowCenterY 
+      }]);
+      
+      console.log(`💧 Particles emitted from arrow ${stepNumber} at (${arrowCenterX}, ${arrowCenterY})`);
+    }
+  };
+  
+  // Clean up particle emitters after animation completes
+  const handleParticleComplete = (emitterId: string) => {
+    setParticleEmitters(prev => prev.filter(e => e.id !== emitterId));
+  };
+
+  // Scroll to center a specific workflow step
+  const scrollToStep = (stepNumber: number) => {
+    // Try different ID format
+    const element = document.querySelector(`#workflow-step-${stepNumber}`);
+    
+    if (!element) {
+      // Fallback: try to find by index
+      const allSteps = document.querySelectorAll('[id^="workflow-step-"]');
+      console.error(`Cannot find workflow-step-${stepNumber}. Found ${allSteps.length} workflow steps total.`);
+      return;
+    }
+
+    // Simple scroll to element
+    const yOffset = -100; // Account for navbar
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    
+    window.scrollTo({
+      top: y,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <section id="workflow" className="py-32" style={{ backgroundColor: 'var(--background)' }}>
       <Container>
@@ -104,6 +273,7 @@ export default function WorkflowSection() {
             return (
               <motion.div
                 key={index}
+                id={`workflow-step-${step.number}`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -134,16 +304,23 @@ export default function WorkflowSection() {
                       
                       {/* Center Number */}
                       <div className="col-span-2 relative flex justify-center">
-                        <div className="absolute top-0 bottom-0 w-0.5" style={{ backgroundColor: 'var(--border)' }} />
-                        <div 
-                          className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg"
-                          style={{ 
-                            backgroundColor: '#4e8ad3',
-                            color: 'white'
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            scrollToStep(step.number);
                           }}
+                          className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transform transition-all duration-200 hover:scale-110"
+                          style={{ 
+                            backgroundColor: 'rgba(0, 0, 0, 0)'
+                          }}
+                          aria-label={`Go to step ${step.number}: ${step.title}`}
                         >
-                          {step.number}
-                        </div>
+                          <ChevronDown 
+                            className={`w-6 h-6 ${currentStep === step.number ? 'animate-pulse' : ''}`}
+                            style={{ color: '#9ab6e0' }}
+                          />
+                        </button>
                       </div>
                       
                       {/* Right Content */}
@@ -206,16 +383,23 @@ export default function WorkflowSection() {
                       
                       {/* Center Number */}
                       <div className="col-span-2 relative flex justify-center">
-                        <div className="absolute top-0 bottom-0 w-0.5" style={{ backgroundColor: 'var(--border)' }} />
-                        <div 
-                          className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg"
-                          style={{ 
-                            backgroundColor: '#4e8ad3',
-                            color: 'white'
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            scrollToStep(step.number);
                           }}
+                          className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transform transition-all duration-200 hover:scale-110"
+                          style={{ 
+                            backgroundColor: 'rgba(0, 0, 0, 0)'
+                          }}
+                          aria-label={`Go to step ${step.number}: ${step.title}`}
                         >
-                          {step.number}
-                        </div>
+                          <ChevronDown 
+                            className={`w-6 h-6 ${currentStep === step.number ? 'animate-pulse' : ''}`}
+                            style={{ color: '#9ab6e0' }}
+                          />
+                        </button>
                       </div>
                       
                       {/* Right Image */}
@@ -241,15 +425,24 @@ export default function WorkflowSection() {
                 {/* Mobile/Tablet Layout */}
                 <div className="lg:hidden space-y-6">
                   <div className="flex items-center space-x-4 mb-4">
-                    <div 
-                      className="w-10 h-10 rounded-full flex items-center justify-center font-bold"
-                      style={{ 
-                        backgroundColor: '#4e8ad3',
-                        color: 'white'
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log(`Mobile button clicked for step ${step.number}`);
+                        scrollToStep(step.number);
                       }}
+                      className="w-10 h-10 rounded-full flex items-center justify-center font-bold cursor-pointer transform transition-all duration-200 hover:scale-110"
+                      style={{ 
+                        backgroundColor: 'rgba(0, 0, 0, 0)'
+                      }}
+                      aria-label={`Go to step ${step.number}: ${step.title}`}
                     >
-                      {step.number}
-                    </div>
+                      <ChevronDown 
+                        className="w-5 h-5"
+                        style={{ color: '#9ab6e0' }}
+                      />
+                    </button>
                     <div>
                       <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
                         {step.title}
@@ -294,6 +487,16 @@ export default function WorkflowSection() {
           })}
         </div>
       </Container>
+      
+      {/* Render particle emitters */}
+      {particleEmitters.map(emitter => (
+        <WaterDropParticles
+          key={emitter.id}
+          x={emitter.x}
+          y={emitter.y}
+          onComplete={() => handleParticleComplete(emitter.id)}
+        />
+      ))}
     </section>
   );
 }

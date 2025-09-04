@@ -74,6 +74,18 @@ export default {
         'spiral-from-bottom-delayed-half-rapid': 'spiral-from-bottom-half 26.3s ease-in-out infinite',  // was 20.2s
         'spiral-from-bottom-tight-half-rapid': 'spiral-from-bottom-tight-half 22.0s ease-in-out infinite',  // was 16.9s
         'spiral-from-bottom-wide-half-rapid': 'spiral-from-bottom-wide-half 24.6s ease-in-out infinite',  // was 18.9s
+        
+        // Water drop falling animations - faster with cubic-bezier for acceleration
+        'water-fall-1': 'water-fall 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+        'water-fall-2': 'water-fall 1.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s forwards',
+        'water-fall-3': 'water-fall 1.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards',
+        'water-fall-4': 'water-fall 2.0s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.02s forwards',
+        'water-fall-5': 'water-fall 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.08s forwards',
+        'water-fall-6': 'water-fall 2.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s forwards',
+        'water-fall-7': 'water-fall 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.18s forwards',
+        'water-fall-8': 'water-fall 1.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.04s forwards',
+        'water-fall-9': 'water-fall 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.12s forwards',
+        'water-fall-10': 'water-fall 1.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.06s forwards',
       },
       keyframes: {
         'spiral-from-top': {
@@ -302,6 +314,28 @@ export default {
             transform: 'rotate(720deg) translateY(0vh) rotate(-720deg)',
             opacity: '0',
             scale: '0.1'
+          }
+        },
+        'water-fall': {
+          '0%': { 
+            transform: 'translateY(-10px) translateX(0) scale(1.2)',
+            opacity: '0.9',
+          },
+          '5%': {
+            transform: 'translateY(30px) translateX(calc(var(--drift, 0px) * 0.1)) scale(1.1)',
+            opacity: '1',
+          },
+          '20%': {
+            transform: 'translateY(150px) translateX(calc(var(--drift, 0px) * 0.3)) scale(1)',
+            opacity: '0.95',
+          },
+          '50%': {
+            transform: 'translateY(400px) translateX(calc(var(--drift, 0px) * 0.6)) scale(0.9)',
+            opacity: '0.7',
+          },
+          '100%': { 
+            transform: 'translateY(800px) translateX(var(--drift, 0px)) scale(0.7)',
+            opacity: '0',
           }
         }
       }
