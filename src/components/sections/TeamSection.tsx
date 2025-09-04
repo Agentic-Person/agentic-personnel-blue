@@ -10,7 +10,7 @@ import { Linkedin, Mail, Globe, Phone } from 'lucide-react';
 const teamMembers = [
   {
     name: "Jimmy Davidson",
-    role: "AI Agentech Orchestrator & Full-Stack Solutions Developer",
+    role: "AI Agentic Orchestrator & Full-Stack Solutions Developer",
     image: "/avatar/jimmy3d.png",
     description: "Blending the precision of a full-stack developer with the imagination of a game designer, Jimmy is at the forefront of AI-driven automation. He architects intelligent, scalable solutions that turn complexity into clarity—seamlessly connecting systems, automating workflows, and creating modern web experiences that just work.\n\nJimmy specializes in advanced automation, real-time information retrieval, orchestrating and building robust, user-centric platforms that bridge the gap between creativity and technology.\n\nAs the founder of Agentic Personnel, he thrives on transforming bold ideas and ambitious requirements into practical, future-ready solutions.\n\nWhether it's designing whimsical interfaces, streamlining business operations, or pioneering new frontiers in AI, Jimmy brings technical mastery, creative problem-solving, and a collaborative spirit to every project.",
     links: {
