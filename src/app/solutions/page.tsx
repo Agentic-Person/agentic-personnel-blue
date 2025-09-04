@@ -10,7 +10,7 @@ export default function SolutionsPage() {
         <Container>
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              AI Solutions Built for Your Business
+              How We Build AI That Simply Works
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               Custom AI implementations that understand your unique challenges and deliver measurable results.

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -12,6 +13,7 @@ interface SolutionPillar {
   title: string;
   description: string;
   features: string[];
+  image: string;
 }
 
 const solutionPillars: SolutionPillar[] = [
@@ -23,7 +25,8 @@ const solutionPillars: SolutionPillar[] = [
       "Custom opportunity analysis",
       "Industry-specific recommendations",
       "ROI projections for your business"
-    ]
+    ],
+    image: "/images/understand-first.png"
   },
   {
     title: "Build Custom", 
@@ -33,7 +36,8 @@ const solutionPillars: SolutionPillar[] = [
       "Secure, private implementations",
       "Integration with your current systems",
       "Scalable architecture for growth"
-    ]
+    ],
+    image: "/images/build-custom.png"
   },
   {
     title: "Support Always",
@@ -43,7 +47,8 @@ const solutionPillars: SolutionPillar[] = [
       "Regular performance reviews",
       "Continuous optimization",
       "24/7 technical support"
-    ]
+    ],
+    image: "/images/support-always.png"
   }
 ];
 
@@ -53,7 +58,7 @@ export default function SolutionSection() {
       <Container>
         <ScrollReveal className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
-            How We Build AI That Actually Works
+            We Build AI Solutions That Simply Work
           </h2>
           <p className="text-xl max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
             Our proven three-pillar approach ensures your AI implementation delivers 
@@ -67,18 +72,21 @@ export default function SolutionSection() {
           className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
         >
           {solutionPillars.map((pillar, index) => (
-            <Card key={index} className="h-full relative overflow-hidden group hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 text-white rounded-lg flex items-center justify-center font-bold" 
-                       style={{ backgroundColor: 'var(--primary)' }}>
-                    {index + 1}
-                  </div>
-                  <CardTitle className="text-2xl">
-                    {pillar.title}
-                  </CardTitle>
+            <Card key={index} className="h-full relative overflow-hidden group hover:shadow-xl transition-shadow min-h-[500px]">
+              <CardHeader className="pb-4">
+                <div className="flex justify-center mb-6">
+                  <Image
+                    src={pillar.image}
+                    alt={pillar.title}
+                    width={240}
+                    height={240}
+                    className="object-contain"
+                  />
                 </div>
-                <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                <CardTitle className="text-2xl mb-4 text-center">
+                  {pillar.title}
+                </CardTitle>
+                <p className="leading-relaxed text-left" style={{ color: 'var(--text-secondary)' }}>
                   {pillar.description}
                 </p>
               </CardHeader>

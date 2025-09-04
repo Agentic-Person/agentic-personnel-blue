@@ -166,12 +166,12 @@ export default function WorkflowSection() {
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
     
-    // Configure the water drop sound
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime); // Start frequency
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1); // Drop pitch
+    // Configure the water drop sound - softer tone
+    oscillator.frequency.setValueAtTime(600, audioContext.currentTime); // Lower start frequency
+    oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.12); // Smoother drop
     
-    // Configure volume envelope for that 'drop' effect - AUDIO OFF
-    gainNode.gain.setValueAtTime(0, audioContext.currentTime);  // Set to 0 for OFF
+    // Configure volume envelope for that 'drop' effect - AUDIO ON
+    gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);  // Quiet water drop sound
     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
     
     // Play the sound
@@ -186,15 +186,15 @@ export default function WorkflowSection() {
       oscillator2.connect(gainNode2);
       gainNode2.connect(audioContext.destination);
       
-      oscillator2.frequency.setValueAtTime(600, audioContext.currentTime);
-      oscillator2.frequency.exponentialRampToValueAtTime(250, audioContext.currentTime + 0.05);
+      oscillator2.frequency.setValueAtTime(400, audioContext.currentTime);
+      oscillator2.frequency.exponentialRampToValueAtTime(180, audioContext.currentTime + 0.08);
       
-      gainNode2.gain.setValueAtTime(0, audioContext.currentTime);  // Set to 0 for OFF
+      gainNode2.gain.setValueAtTime(0, audioContext.currentTime);  // Second tone muted
       gainNode2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
       
       oscillator2.start(audioContext.currentTime);
       oscillator2.stop(audioContext.currentTime + 0.15);
-    }, 50);
+    }, 100);
   };
 
   // Handle particle emission (for all arrows, only when scrolling down)

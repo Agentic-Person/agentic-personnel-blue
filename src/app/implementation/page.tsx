@@ -10,7 +10,7 @@ export default function ImplementationPage() {
         <Container>
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              AI Implementation That Actually Works
+              AI Implementation That Simply Works
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               From planning to deployment, we handle every aspect of your AI implementation 

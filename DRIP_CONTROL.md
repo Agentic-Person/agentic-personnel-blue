@@ -127,12 +127,13 @@ setTimeout(() => {
 // Spread: ±50px
 ```
 
-### Silent Mode (Current)
+### Quiet Water Drops (Current)
 ```javascript
-// Audio: 0 / 0 (OFF)
+// Audio: 0.05 / 0.03
 // Particles: 10
 // Velocity: vy = 8-10
 // Spread: ±30px
+// Second tone delay: 100ms
 ```
 
 ### Gentle Drip
