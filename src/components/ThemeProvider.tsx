@@ -8,8 +8,9 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       attribute="data-theme"
       defaultTheme="dark"
       enableSystem={false}
-      disableTransitionOnChange={false}
+      disableTransitionOnChange={true}
       forcedTheme="dark"
+      storageKey="theme"
       {...props}
     >
       {children}

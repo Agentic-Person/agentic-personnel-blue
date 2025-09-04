@@ -9,22 +9,42 @@ import Button from '@/components/ui/Button';
 import Container from '@/components/ui/Container';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { handleSectionClick } from '@/lib/scroll';
+import ShimmerButton from '@/components/ui/ShimmerButton';
 
 const navigationItems: NavigationItem[] = [
   { label: 'Solutions', href: '#solutions' },
   { label: 'Workflow', href: '#workflow' },
-  { label: 'Success Stories', href: '#success-stories' },
-  { label: 'Demos', href: '#demos' },
   { label: 'Team', href: '#team' },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
+      
+      // Check which section is currently in view
+      const sections = ['solutions', 'workflow', 'team'];
+      const scrollPosition = window.scrollY + 100; // Account for navbar height
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+      
+      // Clear active section if at the top of the page
+      if (window.scrollY < 100) {
+        setActiveSection('');
+      }
     };
 
     // Entrance animation trigger - more dramatic
@@ -70,33 +90,53 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleSectionClick(e, item.href.substring(1))}
-                className="font-medium transition-colors duration-300 hover:brightness-110 cursor-pointer"
-                style={{ 
-                  color: 'var(--text-secondary)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--primary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navigationItems.map((item) => {
+              const sectionId = item.href.substring(1);
+              const isActive = activeSection === sectionId;
+              
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    handleSectionClick(e, sectionId);
+                    setActiveSection(sectionId);
+                  }}
+                  className="relative font-medium transition-all duration-300 hover:brightness-110 cursor-pointer pb-1"
+                  style={{ 
+                    color: isActive ? '#4e8ad3' : 'var(--text-secondary)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = 'var(--primary)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                    }
+                  }}
+                >
+                  {item.label}
+                  {/* Active indicator underscore */}
+                  <span 
+                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-500 transition-all duration-300"
+                    style={{
+                      width: isActive ? '100%' : '0%',
+                      opacity: isActive ? 1 : 0,
+                    }}
+                  />
+                </a>
+              );
+            })}
           </div>
 
           {/* CTA Button and Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-            <Button variant="primary" size="md">
-              Let's Chat!
-            </Button>
+            <ShimmerButton href="https://calendly.com/jimmy-agenticpersonnel/30min?month=2025-09">
+              Chat with Our AI
+            </ShimmerButton>
           </div>
 
           {/* Mobile Menu Button and Theme Toggle */}

@@ -102,15 +102,6 @@ export default function SolutionSection() {
             </Card>
           ))}
         </StaggerReveal>
-
-        {/* CTA */}
-        <ScrollReveal direction="fade" delay={0.6} className="text-center">
-          <Link href="/workflow">
-            <Button variant="outline" size="lg">
-              See How We Do It
-            </Button>
-          </Link>
-        </ScrollReveal>
       </Container>
     </section>
   );

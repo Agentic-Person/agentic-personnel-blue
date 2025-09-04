@@ -8,6 +8,8 @@ import { Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AnimatedButton from '@/components/animations/AnimatedButton';
 import { useState, useEffect } from 'react';
+import ShimmerButton from '@/components/ui/ShimmerButton';
+import Image from 'next/image';
 
 export default function HeroSection() {
   // Burst mode state management - keeping it always true for continuous burst
@@ -123,27 +125,11 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
-              className="flex items-center justify-center w-full px-4"
+              className="flex items-center justify-center lg:justify-start w-full px-4 lg:px-0"
             >
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                style={{
-                  backgroundColor: '#4e8ad3',
-                  borderColor: '#FFFFFF',
-                  color: '#FFFFFF',
-                  border: '2px solid #FFFFFF',
-                  padding: '12px 32px',
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit'
-                }}
-              >
-                Book a quick discovery call
-              </motion.button>
+              <ShimmerButton href="https://calendly.com/jimmy-agenticpersonnel/30min?month=2025-09">
+                Chat with Our AI
+              </ShimmerButton>
             </motion.div>
 
             {/* Team Credibility Bar */}
@@ -153,10 +139,14 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 1.2 }}
               className="pt-8"
             >
-              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
+              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-8">
               <div className="flex -space-x-2">
-                {/* Avatar Placeholders */}
-                {[0, 1, 2].map((index) => (
+                {/* Avatar Images - AI Agent and Jimmy switched */}
+                {[
+                  { src: '/avatar/ai-agent.png', alt: 'AI Agent' },
+                  { src: '/avatar/mattsnow2.png', alt: 'Matthew Snow' },
+                  { src: '/avatar/jimmy3d.png', alt: 'Jimmy Davidson' }
+                ].map((avatar, index) => (
                   <motion.div 
                     key={index}
                     initial={{ scale: 0, opacity: 0 }}
@@ -167,21 +157,29 @@ export default function HeroSection() {
                       type: 'spring',
                       stiffness: 150 
                     }}
-                    className="w-12 h-12 rounded-full border-2" 
+                    className="relative w-12 h-12 rounded-full border-2 overflow-hidden bg-gradient-to-br from-[#1a1464] to-[#3d2574]" 
                     style={{ 
-                      backgroundColor: index === 0 ? 'var(--primary)' : index === 1 ? 'var(--card-background)' : 'var(--text-secondary)', 
-                      borderColor: 'var(--text-primary)' 
+                      borderColor: '#FFFFFF'
                     }}
-                  />
+                  >
+                    <Image 
+                      src={avatar.src}
+                      alt={avatar.alt}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </motion.div>
                 ))}
               </div>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 1.5 }}
+                className="pt-3"
               >
                   <p className="text-sm font-semibold text-center lg:text-left" style={{ color: 'var(--text-primary)' }}>
-                    Powered by Prompt Surgeon™ | Enterprise-Grade Security | Version 1.101+
+                    Simple Solutions | Enterprise-Grade Security | Support Always
                   </p>
                 </motion.div>
               </div>

@@ -96,7 +96,7 @@ export default function WorkflowSection() {
           </p>
         </motion.div>
 
-        {/* Alternating Process Steps */}
+        {/* Process Steps with Consistent Grid */}
         <div className="space-y-24 max-w-7xl mx-auto">
           {workflowSteps.map((step, index) => {
             const isEven = index % 2 === 0;
@@ -110,16 +110,16 @@ export default function WorkflowSection() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="relative"
               >
-                {/* Desktop Layout */}
-                <div className="hidden lg:grid lg:grid-cols-[1fr_120px_auto_120px_1fr] items-center">
+                {/* Desktop Layout - FIXED GRID */}
+                <div className="hidden lg:grid lg:grid-cols-12 items-center gap-8">
                   {isEven ? (
                     <>
                       {/* Left Image */}
-                      <div className="flex justify-end">
+                      <div className="col-span-5">
                         <motion.div
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.3 }}
-                          className="relative w-[480px] h-[270px] rounded-2xl overflow-hidden shadow-2xl"
+                          className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl"
                           style={{ borderColor: '#4e8ad3', borderWidth: '2px' }}
                         >
                           <Image
@@ -132,11 +132,8 @@ export default function WorkflowSection() {
                         </motion.div>
                       </div>
                       
-                      {/* Left Gap */}
-                      <div />
-                      
-                      {/* Center Line */}
-                      <div className="relative flex justify-center">
+                      {/* Center Number */}
+                      <div className="col-span-2 relative flex justify-center">
                         <div className="absolute top-0 bottom-0 w-0.5" style={{ backgroundColor: 'var(--border)' }} />
                         <div 
                           className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg"
@@ -149,76 +146,66 @@ export default function WorkflowSection() {
                         </div>
                       </div>
                       
-                      {/* Right Gap */}
-                      <div />
-                      
                       {/* Right Content */}
-                      <div className="flex justify-start">
-                        <div className="max-w-md">
-                          <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-                            {step.title}
-                          </h3>
-                          <p className="text-lg font-medium mb-4" style={{ color: '#4e8ad3' }}>
-                            {step.subtitle}
-                          </p>
-                          <p className="text-base mb-6 leading-relaxed" style={{ color: 'var(--text-body)' }}>
-                            {step.description}
-                          </p>
-                          <ul className="space-y-3">
-                            {step.features.map((feature, featureIndex) => (
-                              <li key={featureIndex} className="flex items-start space-x-3">
-                                <div 
-                                  className="flex-shrink-0 w-5 h-5 rounded-full mt-0.5 flex items-center justify-center"
-                                  style={{ backgroundColor: '#4e8ad3' }}
-                                >
-                                  <div className="w-2 h-2 rounded-full bg-white" />
-                                </div>
-                                <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                                  {feature}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                      <div className="col-span-5">
+                        <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                          {step.title}
+                        </h3>
+                        <p className="text-lg font-medium mb-4" style={{ color: '#4e8ad3' }}>
+                          {step.subtitle}
+                        </p>
+                        <p className="text-base mb-6 leading-relaxed" style={{ color: '#FFFFFF' }}>
+                          {step.description}
+                        </p>
+                        <ul className="space-y-3">
+                          {step.features.map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-start space-x-3">
+                              <div 
+                                className="flex-shrink-0 w-5 h-5 rounded-full mt-0.5 flex items-center justify-center"
+                                style={{ backgroundColor: '#4e8ad3' }}
+                              >
+                                <div className="w-2 h-2 rounded-full bg-white" />
+                              </div>
+                              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                                {feature}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </>
                   ) : (
                     <>
                       {/* Left Content */}
-                      <div className="flex justify-end">
-                        <div className="max-w-md">
-                          <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-                            {step.title}
-                          </h3>
-                          <p className="text-lg font-medium mb-4" style={{ color: '#4e8ad3' }}>
-                            {step.subtitle}
-                          </p>
-                          <p className="text-base mb-6 leading-relaxed" style={{ color: 'var(--text-body)' }}>
-                            {step.description}
-                          </p>
-                          <ul className="space-y-3">
-                            {step.features.map((feature, featureIndex) => (
-                              <li key={featureIndex} className="flex items-start space-x-3">
-                                <div 
-                                  className="flex-shrink-0 w-5 h-5 rounded-full mt-0.5 flex items-center justify-center"
-                                  style={{ backgroundColor: '#4e8ad3' }}
-                                >
-                                  <div className="w-2 h-2 rounded-full bg-white" />
-                                </div>
-                                <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                                  {feature}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                      <div className="col-span-5">
+                        <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                          {step.title}
+                        </h3>
+                        <p className="text-lg font-medium mb-4" style={{ color: '#4e8ad3' }}>
+                          {step.subtitle}
+                        </p>
+                        <p className="text-base mb-6 leading-relaxed" style={{ color: '#FFFFFF' }}>
+                          {step.description}
+                        </p>
+                        <ul className="space-y-3">
+                          {step.features.map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-start space-x-3">
+                              <div 
+                                className="flex-shrink-0 w-5 h-5 rounded-full mt-0.5 flex items-center justify-center"
+                                style={{ backgroundColor: '#4e8ad3' }}
+                              >
+                                <div className="w-2 h-2 rounded-full bg-white" />
+                              </div>
+                              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                                {feature}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                       
-                      {/* Left Gap */}
-                      <div />
-                      
-                      {/* Center Line */}
-                      <div className="relative flex justify-center">
+                      {/* Center Number */}
+                      <div className="col-span-2 relative flex justify-center">
                         <div className="absolute top-0 bottom-0 w-0.5" style={{ backgroundColor: 'var(--border)' }} />
                         <div 
                           className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg"
@@ -231,15 +218,12 @@ export default function WorkflowSection() {
                         </div>
                       </div>
                       
-                      {/* Right Gap */}
-                      <div />
-                      
                       {/* Right Image */}
-                      <div className="flex justify-start">
+                      <div className="col-span-5">
                         <motion.div
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.3 }}
-                          className="relative w-[480px] h-[270px] rounded-2xl overflow-hidden shadow-2xl"
+                          className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl"
                           style={{ borderColor: '#4e8ad3', borderWidth: '2px' }}
                         >
                           <Image
@@ -285,7 +269,7 @@ export default function WorkflowSection() {
                     />
                   </div>
                   
-                  <p className="text-base leading-relaxed" style={{ color: 'var(--text-body)' }}>
+                  <p className="text-base leading-relaxed" style={{ color: '#FFFFFF' }}>
                     {step.description}
                   </p>
                   

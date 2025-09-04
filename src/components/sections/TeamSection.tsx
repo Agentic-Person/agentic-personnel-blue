@@ -1,22 +1,45 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Container from '@/components/ui/Container';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import StaggerReveal from '@/components/animations/StaggerReveal';
+import { Linkedin, Mail, Globe } from 'lucide-react';
 
-const teamHighlights = [
+const teamMembers = [
   {
-    title: "Founder-Led",
-    description: "Direct access to decision makers who care about your success"
+    name: "Jimmy Davidson",
+    role: "AI Agentech Orchestrator & Full-Stack Solutions Developer",
+    image: "/jimmy.png",
+    description: "Blending the precision of a full-stack developer with the imagination of a game designer, Jimmy is at the forefront of AI-driven automation. Since 2024, he has architected intelligent, scalable solutions for clients - leveraging the power of n8n workflows, Node.js, React, Tailwind CSS, Supabase, and NeonDB to deliver seamless, modern web applications.\n\nJimmy specializes in building advanced backend automations with n8n, integrating vectorized databases for real-time information retrieval, and orchestrating robust, user-centric platforms that bridge the gap between creativity and technology. As founder of Agentic Personnel, he thrives on transforming bold ideas and complex requirements into practical, future-ready systems.\n\nWhether it's designing playful interfaces, streamlining business processes, or pioneering new possibilities in AI and automation, Jimmy brings technical mastery, creative problem-solving, and a collaborative spirit to every project.",
+    links: {
+      email: "jimmy@agenticpersonnel.com",
+      linkedin: "https://linkedin.com/in/jimmydavidson",
+      website: "https://agenticpersonnel.com"
+    }
   },
   {
-    title: "Expert-Driven", 
-    description: "Deep AI expertise combined with real-world business experience"
+    name: "Matthew Snow",
+    role: "AI Engineer, Automation Architect",
+    image: "/mattsnow.png",
+    description: "Founder of Me, Myself Plus AI, Matthew transforms ideas into intelligent systems. With deep expertise in agentic workflows, LLM integrations, and voice-driven automation, Matthew brings a sharp, hands-on approach to solving complex business challenges. His portfolio spans everything from n8n-powered orchestration to real-time data tools for marketing, healthcare, and automotive performance. Equal parts technical strategist and creative builder, Matthew isn't just chasing the future of AI - he's engineering it one agent at a time.",
+    links: {
+      email: "matt@memyselfplusai.com",
+      linkedin: "https://linkedin.com/in/matthewsnow",
+      website: "https://memyselfplusai.com"
+    }
   },
   {
-    title: "SMB-Focused",
-    description: "Everything we do is designed specifically for small and medium businesses"
+    name: "Sarah",
+    role: "AI Communications Concierge",
+    image: "/avatar/ai-agent.png",
+    description: "The AI Communications Concierge is the digital heartbeat of Agentic Personnel's client experience. This advanced, fully automated system manages all inbound and outbound communications - including phone calls, SMS, and email - ensuring every inquiry is handled promptly, professionally, and with a personal touch.\n\nBuilt atop industry-leading AI, n8n workflow orchestration, and real-time information retrieval from vectorized databases, our concierge doesn't just answer phones; it intelligently routes calls, schedules appointments, answers FAQs, gathers key information, and seamlessly hands off complex issues to human team members when needed.\n\nWhether engaging with clients, candidates, or partners, the AI Communications Concierge ensures Agentic Personnel's communications are always consistent, reliable, and available 24/7. By streamlining routine processes and eliminating wait times, it empowers our team to focus on what matters most: building great relationships and delivering exceptional solutions.",
+    links: {
+      email: "hello@agenticpersonnel.com",
+      linkedin: "",
+      website: "https://agenticpersonnel.com"
+    }
   }
 ];
 
@@ -29,44 +52,122 @@ export default function TeamSection() {
             Meet The Team
           </h2>
           <p className="text-xl max-w-3xl mx-auto mb-4" style={{ color: 'var(--text-body)' }}>
-            Founder-led, expert-driven team dedicated to helping SMBs succeed with custom AI solutions.
-          </p>
-          <p className="text-lg font-medium italic" style={{ color: 'var(--text-secondary)' }}>
-            &ldquo;We want to help as many people as we can&rdquo;
+            Combining creative minds and intelligent automation to reimagine what's possible.
           </p>
         </ScrollReveal>
 
-        {/* Team Highlights */}
+        {/* Team Members Grid - Optimized for 3 cards in a row */}
         <StaggerReveal 
-          staggerDelay={0.2}
+          staggerDelay={0.3}
           direction="up"
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16 max-w-7xl mx-auto"
         >
-          {teamHighlights.map((highlight, index) => (
-            <Card key={index} className="text-center h-full hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: 'var(--background)' }}>
-                  <div className="w-8 h-8 rounded-full" style={{ backgroundColor: 'var(--border)' }}></div>
+          {teamMembers.map((member, index) => (
+            <Card 
+              key={index} 
+              className="overflow-hidden transition-all duration-300 hover:scale-105 w-full"
+              style={{ 
+                minHeight: '500px',
+                border: '2px solid rgba(78, 138, 211, 0.3)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(78, 138, 211, 0.2)'
+              }}
+            >
+              <CardContent className="p-6 flex flex-col h-full">
+                {/* Circular Profile Image */}
+                <div className="flex justify-center mb-4">
+                  <div className="relative w-32 h-32 rounded-full overflow-hidden ring-2 ring-white" style={{ ringOpacity: 0.9 }}>
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover object-center"
+                      priority={index === 0}
+                    />
+                  </div>
                 </div>
-                <CardTitle className="text-xl mb-3">{highlight.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="leading-relaxed" style={{ color: 'var(--text-body)' }}>
-                  {highlight.description}
-                </p>
+                
+                {/* Centered Name and Role */}
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                    {member.name}
+                  </h3>
+                  <p className="text-sm font-medium" style={{ color: 'var(--primary)' }}>
+                    {member.role}
+                  </p>
+                </div>
+                
+                {/* Left-aligned Description */}
+                <div className="flex-grow mb-4">
+                  <div className="text-xs leading-relaxed text-left space-y-2" style={{ color: '#FFFFFF', opacity: 0.95 }}>
+                    {member.description.split('\n\n').map((paragraph, idx) => (
+                      <p key={idx}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Contact Links - Centered at bottom */}
+                <div className="flex justify-center gap-3 pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
+                  <a 
+                    href={`mailto:${member.links.email}`}
+                    className="p-2.5 rounded-full transition-all hover:scale-110 hover:shadow-lg"
+                    style={{ 
+                      backgroundColor: 'var(--card-background)',
+                      border: '1px solid var(--border)'
+                    }}
+                    aria-label={`Email ${member.name}`}
+                  >
+                    <Mail size={18} style={{ color: 'var(--primary)' }} />
+                  </a>
+                  
+                  {member.links.linkedin && (
+                    <a 
+                      href={member.links.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-full transition-all hover:scale-110 hover:shadow-lg"
+                      style={{ 
+                        backgroundColor: 'var(--card-background)',
+                        border: '1px solid var(--border)'
+                      }}
+                      aria-label={`${member.name} LinkedIn`}
+                    >
+                      <Linkedin size={18} style={{ color: 'var(--primary)' }} />
+                    </a>
+                  )}
+                  
+                  <a 
+                    href={member.links.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-full transition-all hover:scale-110 hover:shadow-lg"
+                    style={{ 
+                      backgroundColor: 'var(--card-background)',
+                      border: '1px solid var(--border)'
+                    }}
+                    aria-label={`${member.name} Website`}
+                  >
+                    <Globe size={18} style={{ color: 'var(--primary)' }} />
+                  </a>
+                </div>
               </CardContent>
             </Card>
           ))}
         </StaggerReveal>
 
-        {/* Company Values Preview */}
+        {/* Our Values */}
         <ScrollReveal direction="up" delay={0.3}>
-          <div className="rounded-2xl p-8 mb-12" style={{ backgroundColor: 'var(--background)' }}>
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Our Philosophy</h3>
-            <p style={{ color: 'var(--text-body)' }}>The principles that guide everything we do</p>
-          </div>
-          
+          <div 
+            className="text-center max-w-4xl mx-auto" 
+            style={{ 
+              backgroundColor: 'var(--card-background)', 
+              borderRadius: '1rem', 
+              padding: '2rem',
+              border: '2px solid rgba(78, 138, 211, 0.3)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(78, 138, 211, 0.2)'
+            }}>
+          <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+            Our Values
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               "Generous Value First",
@@ -85,27 +186,6 @@ export default function TeamSection() {
           </div>
         </ScrollReveal>
 
-        {/* CTA */}
-        <ScrollReveal direction="up" delay={0.5}>
-          <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-              Ready to Work Together?
-            </h3>
-            <p className="mb-6" style={{ color: 'var(--text-body)' }}>
-              Let&apos;s discuss how we can help your business succeed with custom AI solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="lg">
-                Schedule a Call
-              </Button>
-              <Link href="/team">
-                <Button variant="outline" size="lg">
-                  Meet the Full Team
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </ScrollReveal>
       </Container>
     </section>
   );

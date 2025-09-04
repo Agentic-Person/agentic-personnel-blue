@@ -12,12 +12,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The AI CEO - Custom AI Solutions for SMBs",
-  description: "Stop fighting with generic AI tools. Get custom AI that actually understands your business - without the enterprise price tag. Free assessment available.",
-  keywords: "AI consulting, small business AI, custom AI solutions, AI implementation, SMB automation",
-  authors: [{ name: "The AI CEO" }],
-  creator: "The AI CEO",
-  publisher: "The AI CEO",
+  title: "Agentic Personnel - Smart Automation for SMBs",
+  description: "We build smart systems that manage repetitive tasks, simplify workflows, and lighten the load for SMBs. Intelligent Systems. Built for Humans. Powered by AI.",
+  keywords: "AI automation, smart systems, workflow automation, SMB solutions, business automation, agentic personnel",
+  authors: [{ name: "Agentic Personnel" }],
+  creator: "Agentic Personnel",
+  publisher: "Agentic Personnel",
   robots: {
     index: true,
     follow: true,
@@ -25,25 +25,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://theaiceo.ai",
-    siteName: "The AI CEO",
-    title: "The AI CEO - Custom AI Solutions for SMBs",
-    description: "Stop fighting with generic AI tools. Get custom AI that actually understands your business - without the enterprise price tag.",
+    url: "https://agenticpersonnel.com",
+    siteName: "Agentic Personnel",
+    title: "Agentic Personnel - Smart Automation for SMBs",
+    description: "We build smart systems that manage repetitive tasks, simplify workflows, and lighten the load for SMBs.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "The AI CEO - Custom AI Solutions for SMBs",
+        alt: "Agentic Personnel - Smart Automation for SMBs",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The AI CEO - Custom AI Solutions for SMBs",
-    description: "Stop fighting with generic AI tools. Get custom AI that actually understands your business - without the enterprise price tag.",
+    title: "Agentic Personnel - Smart Automation for SMBs",
+    description: "We build smart systems that manage repetitive tasks, simplify workflows, and lighten the load for SMBs.",
     images: ["/og-image.jpg"],
-    creator: "@theaiceo",
+    creator: "@agenticpersonnel",
   },
   viewport: {
     width: "device-width",
@@ -61,8 +61,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable} data-theme="dark">
-      <body className={`${inter.className} antialiased min-h-screen flex flex-col`}>
+    <html lang="en" className={inter.variable} data-theme="dark" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased min-h-screen flex flex-col`} suppressHydrationWarning>
         <ThemeProvider>
           <Navbar />
           <main className="flex-1">
