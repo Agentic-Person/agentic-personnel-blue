@@ -5,29 +5,31 @@ import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import StaggerReveal from '@/components/animations/StaggerReveal';
-import { Linkedin, Mail, Globe } from 'lucide-react';
+import { Linkedin, Mail, Globe, Phone } from 'lucide-react';
 
 const teamMembers = [
   {
     name: "Jimmy Davidson",
     role: "AI Agentech Orchestrator & Full-Stack Solutions Developer",
     image: "/jimmy.png",
-    description: "Blending the precision of a full-stack developer with the imagination of a game designer, Jimmy is at the forefront of AI-driven automation. Since 2024, he has architected intelligent, scalable solutions for clients - leveraging the power of n8n workflows, Node.js, React, Tailwind CSS, Supabase, and NeonDB to deliver seamless, modern web applications.\n\nJimmy specializes in building advanced backend automations with n8n, integrating vectorized databases for real-time information retrieval, and orchestrating robust, user-centric platforms that bridge the gap between creativity and technology. As founder of Agentic Personnel, he thrives on transforming bold ideas and complex requirements into practical, future-ready systems.\n\nWhether it's designing playful interfaces, streamlining business processes, or pioneering new possibilities in AI and automation, Jimmy brings technical mastery, creative problem-solving, and a collaborative spirit to every project.",
+    description: "Blending the precision of a full-stack developer with the imagination of a game designer, Jimmy is at the forefront of AI-driven automation. He architects intelligent, scalable solutions that turn complexity into clarity—seamlessly connecting systems, automating workflows, and creating modern web experiences that just work.\n\nJimmy specializes in advanced automation, real-time information retrieval, orchestrating and building robust, user-centric platforms that bridge the gap between creativity and technology.\n\nAs the founder of Agentic Personnel, he thrives on transforming bold ideas and ambitious requirements into practical, future-ready solutions.\n\nWhether it's designing whimsical interfaces, streamlining business operations, or pioneering new frontiers in AI, Jimmy brings technical mastery, creative problem-solving, and a collaborative spirit to every project.",
     links: {
       email: "jimmy@agenticpersonnel.com",
       linkedin: "https://linkedin.com/in/jimmydavidson",
-      website: "https://agenticpersonnel.com"
+      website: "https://agenticpersonnel.com",
+      phone: ""
     }
   },
   {
     name: "Matthew Snow",
     role: "AI Engineer, Automation Architect",
     image: "/mattsnow.png",
-    description: "Founder of Me, Myself Plus AI, Matthew transforms ideas into intelligent systems. With deep expertise in agentic workflows, LLM integrations, and voice-driven automation, Matthew brings a sharp, hands-on approach to solving complex business challenges. His portfolio spans everything from n8n-powered orchestration to real-time data tools for marketing, healthcare, and automotive performance. Equal parts technical strategist and creative builder, Matthew isn't just chasing the future of AI - he's engineering it one agent at a time.",
+    description: "Founder of Me, Myself Plus AI, Matthew transforms ideas into intelligent systems. With deep expertise in agentic workflows, LLM integrations, and voice-driven automation, Matthew brings a sharp, hands-on approach to solving complex business challenges.\n\nHis portfolio spans everything from n8n-powered orchestration to real-time data tools for marketing, healthcare, and automotive performance.\n\nEqual parts technical strategist and creative builder, Matthew isn't just chasing the future of AI - he's engineering it one agent at a time.",
     links: {
-      email: "matt@memyselfplusai.com",
-      linkedin: "https://linkedin.com/in/matthewsnow",
-      website: "https://memyselfplusai.com"
+      email: "matthew@agenticpersonnel.com",
+      linkedin: "https://www.linkedin.com/in/matthew-s-aa4b4220/",
+      website: "https://memyselfplusai.com",
+      phone: ""
     }
   },
   {
@@ -38,7 +40,8 @@ const teamMembers = [
     links: {
       email: "hello@agenticpersonnel.com",
       linkedin: "",
-      website: "https://agenticpersonnel.com"
+      website: "",
+      phone: "(320) 318-6778"
     }
   }
 ];
@@ -135,19 +138,34 @@ export default function TeamSection() {
                     </a>
                   )}
                   
-                  <a 
-                    href={member.links.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full transition-all hover:scale-110 hover:shadow-lg"
-                    style={{ 
-                      backgroundColor: 'var(--card-background)',
-                      border: '1px solid var(--border)'
-                    }}
-                    aria-label={`${member.name} Website`}
-                  >
-                    <Globe size={18} style={{ color: 'var(--primary)' }} />
-                  </a>
+                  {member.links.phone ? (
+                    <a 
+                      href={`tel:${member.links.phone}`}
+                      className="flex items-center gap-2 px-3 py-2 rounded-full transition-all hover:scale-105 hover:shadow-lg"
+                      style={{ 
+                        backgroundColor: 'var(--card-background)',
+                        border: '1px solid var(--border)'
+                      }}
+                      aria-label={`Call ${member.name}`}
+                    >
+                      <Phone size={18} style={{ color: 'var(--primary)' }} />
+                      <span style={{ color: 'var(--primary)', fontSize: '14px' }}>{member.links.phone}</span>
+                    </a>
+                  ) : member.links.website ? (
+                    <a 
+                      href={member.links.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-full transition-all hover:scale-110 hover:shadow-lg"
+                      style={{ 
+                        backgroundColor: 'var(--card-background)',
+                        border: '1px solid var(--border)'
+                      }}
+                      aria-label={`${member.name} Website`}
+                    >
+                      <Globe size={18} style={{ color: 'var(--primary)' }} />
+                    </a>
+                  ) : null}
                 </div>
               </CardContent>
             </Card>
