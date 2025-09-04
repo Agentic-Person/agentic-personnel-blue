@@ -52,7 +52,7 @@ export default function TeamSection() {
             Meet The Team
           </h2>
           <p className="text-xl max-w-3xl mx-auto mb-4" style={{ color: 'var(--text-body)' }}>
-            Combining creative minds and intelligent automation to reimagine what's possible.
+            Combining creative minds and intelligent automation to reimagine what&apos;s possible.
           </p>
         </ScrollReveal>
 
@@ -75,7 +75,7 @@ export default function TeamSection() {
               <CardContent className="p-6 flex flex-col h-full">
                 {/* Circular Profile Image */}
                 <div className="flex justify-center mb-4">
-                  <div className="relative w-32 h-32 rounded-full overflow-hidden ring-2 ring-white" style={{ ringOpacity: 0.9 }}>
+                  <div className="relative w-32 h-32 rounded-full overflow-hidden ring-2 ring-white ring-opacity-90">
                     <Image
                       src={member.image}
                       alt={member.name}

@@ -79,7 +79,8 @@ export default function PricingSection() {
                 tier.isPopular ? 'ring-2 ring-opacity-60' : ''
               }`}
               style={{ 
-                ringColor: tier.isPopular ? '#10B981' : 'transparent'
+                backgroundColor: 'var(--card-background)',
+                ...(tier.isPopular && { borderColor: '#10B981' })
               }}
             >
               {tier.isPopular && (

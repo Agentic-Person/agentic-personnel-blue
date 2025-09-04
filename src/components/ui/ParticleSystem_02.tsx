@@ -11,7 +11,7 @@ interface ParticleSystemProps {
 }
 
 export default function ParticleSystem({ className = '', convergencePoint = '70%', convergenceVertical = '50%', particleCount = 1, burstMode = false }: ParticleSystemProps) {
-  const [particles, setParticles] = useState<Array<{ id: number; delay: number; animation: string; color: string; size: string; randomX: number; randomY: number; randomRotation: number }>>([]);
+  const [particles, setParticles] = useState<Array<{ id: number; delay: number; animation: string; color: string; size: string; randomX?: number; randomY?: number; randomRotation?: number }>>([]);
 
   useEffect(() => {
     // Determine effective particle count based on burst mode
@@ -70,7 +70,7 @@ export default function ParticleSystem({ className = '', convergencePoint = '70%
       { animation: 'animate-spiral-from-bottom-wide-half', count: Math.floor(20 * effectiveParticleCount), colors: ['#001c38', '#001d39', '#9ab6e0', '#36b0d9'] }
     ];
 
-    const generatedParticles: Array<{ id: number; delay: number; animation: string; color: string; size: string }> = [];
+    const generatedParticles: Array<{ id: number; delay: number; animation: string; color: string; size: string; randomX?: number; randomY?: number; randomRotation?: number }> = [];
     let particleId = 0;
 
     particleConfigs.forEach((config, emitterIndex) => {

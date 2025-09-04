@@ -98,7 +98,7 @@ export default function CTASection() {
                     </div>
                     <div>
                       <h2 className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
-                        Let's Chat
+                        Let&apos;s Chat
                       </h2>
                     </div>
                   </div>
@@ -106,7 +106,7 @@ export default function CTASection() {
                   {/* Description */}
                   <p className="text-sm leading-relaxed mb-8" style={{ color: 'var(--text-body)', opacity: 0.9 }}>
                     Ready to automate your business and focus on what matters most? 
-                    Let's discuss how we can help you save time and increase revenue. 
+                    Let&apos;s discuss how we can help you save time and increase revenue. 
                     We will create a Mind-Flow visual map of our conversation and give us something to build upon.
                   </p>
 
